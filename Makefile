@@ -50,13 +50,13 @@ externals.fetched:
 	touch externals.fetched
 
 
-$(EXTERNALS)/pypy:
-	mkdir $(EXTERNALS); \
-	cd $(EXTERNALS); \
-	curl https://bitbucket.org/pypy/pypy/get/91db1a9.tar.bz2 >  pypy.tar.bz2; \
-	mkdir pypy; \
-	cd pypy; \
-	tar -jxf ../pypy.tar.bz2 --strip-components=1
+$(EXTERNALS)/pypy.tar.bz2:
+	mkdir $(EXTERNALS)
+	curl https://downloads.python.org/pypy/pypy2-v5.6.0-src.tar.bz2 > $(EXTERNALS)/pypy.tar.bz2
+
+$(EXTERNALS)/pypy: $(EXTERNALS)/pypy.tar.bz2
+	mkdir $(EXTERNALS)/pypy
+	cd $(EXTERNALS)/pypy && tar -jxf ../pypy.tar.bz2 --strip-components=1
 
 run:
 	./pixie-vm
